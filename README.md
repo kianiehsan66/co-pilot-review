@@ -2,13 +2,17 @@
 
 AI-assisted code review tool that analyzes git changes and posts reviews to pull requests using GitHub Copilot.
 
-## Features
+**💡 Why this tool?** While there are more sophisticated commercial code review tools available, this solution provides similar functionality for free if you already have GitHub Copilot access. It's a creative(hacky 😁) workaround that leverages Copilot's capabilities for semi-automated code reviews without additional costs.
 
-- 🤖 AI-powered code review using GitHub Copilot
-- 📋 Analyzes git diff between current branch and main
-- 📝 Posts formatted review comments to pull requests
-- ⚙️ Customizable coding guidelines
-- 🔄 Interactive workflow with Copilot Chat
+## Prerequisites
+
+Before using co-pilot-review, make sure you have:
+
+1. **Git repository**: Must be run from within a git repository
+2. **GitHub CLI**: Must have `gh` [CLI](https://cli.github.com/) installed and authenticated (`gh auth login`)
+3. **GitHub Copilot**: Must have access to GitHub Copilot Chat
+4. **Pull Request**: Must be run from a branch with an open pull request
+5. **Custom guidelines** (optional): Create a `co-pilot-coding-review-guidelines.md` file in your project root
 
 ## Installation
 
@@ -23,10 +27,7 @@ Or install globally via yarn:
 ```bash
 yarn global add co-pilot-review
 ```
-
-## Usage
-
-### Basic Usage
+## Basic Usage
 Run the command in your git repository:
 
 ```bash
@@ -39,7 +40,19 @@ Or if installed via npm:
 npx cp-review
 ```
 
-### Advanced Usage - Branch Selection
+## How it works
+
+1. **Detects changes**: Analyzes git diff between specified branches
+2. **Generates prompt**: Creates a structured prompt with your custom guidelines
+3. **Copies to clipboard**: Automatically copies the prompt to your clipboard
+4. **Copilot interaction**: You paste the prompt into Copilot Chat (Agent mode, Edit mode)
+5. **Waits for response**: Monitors for the JSON response file creation
+6. **Posts review**: Formats and posts the review as a pull request comment
+
+
+## Advanced Usage
+
+### Branch Selection Options
 
 **Compare specific branches:**
 ```bash
@@ -93,23 +106,6 @@ cp-review --base origin/main --target origin/feature-branch
 # Interactive mode (shows available branches)
 cp-review --interactive
 ```
-
-## Prerequisites
-
-1. **Git repository**: Must be run from within a git repository
-2. **GitHub CLI**: Must have `gh` CLI installed and authenticated
-3. **Custom guidelines**: Create a `co-pilot-coding-review-guidelines.md` file in your project root
-4. **GitHub Copilot**: Must have access to GitHub Copilot Chat
-5. **Pull Request**: Must be run from a branch with an open pull request
-
-## How it works
-
-1. **Detects changes**: Analyzes git diff between current branch and main
-2. **Generates prompt**: Creates a structured prompt with your custom guidelines
-3. **Copies to clipboard**: Automatically copies the prompt to your clipboard
-4. **Copilot interaction**: You paste the prompt into Copilot Chat (Agent mode, Edit mode)
-5. **Waits for response**: Monitors for the JSON response file creation
-6. **Posts review**: Formats and posts the review as a pull request comment
 
 ## Custom Guidelines
 
