@@ -1,0 +1,53 @@
+# Example Custom Coding Review Guidelines
+
+## Code Quality Standards
+
+### General Principles
+- Write clean, readable, and maintainable code
+- Follow consistent naming conventions
+- Use meaningful variable and function names
+- Keep functions small and focused on a single responsibility
+
+### Error Handling
+- Always handle errors appropriately
+- Use try-catch blocks for async operations
+- Provide meaningful error messages
+- Log errors for debugging purposes
+
+### Performance
+- Avoid unnecessary computations in loops
+- Use efficient data structures
+- Consider memory usage and potential leaks
+- Optimize for the common case
+
+### Security
+- Validate all user inputs
+- Sanitize data before processing
+- Avoid hardcoded secrets or credentials
+- Use secure coding practices
+
+### Documentation
+- Add comments for complex logic
+- Document function parameters and return values
+- Keep documentation up to date with code changes
+- Use clear and concise explanations
+
+### Testing
+- Write unit tests for new functionality
+- Ensure good test coverage
+- Use descriptive test names
+- Test both happy path and edge cases
+
+## Language-Specific Guidelines
+
+### JavaScript/Node.js
+- Use `const` and `let` instead of `var`
+- Prefer arrow functions for simple operations
+- Use async/await over promises when possible
+- Follow ESLint rules
+
+### Git Practices
+- Use meaningful commit messages
+- Keep commits focused and atomic
+- Follow conventional commit format when applicable
+- Avoid committing sensitive information

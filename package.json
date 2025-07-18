@@ -1,0 +1,36 @@
+{
+  "name": "co-pilot-review",
+  "version": "1.1.0",
+  "description": "AI-assisted code review tool that analyzes git changes and posts reviews to pull requests",
+  "main": "index.js",
+  "bin": {
+    "cp-review": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublishOnly": "echo 'Publishing co-pilot-review...'",
+    "postinstall": "echo 'Thank you for installing co-pilot-review! Run cp-review in your git repository to get started.'"
+  },
+  "keywords": [
+    "code-review",
+    "ai",
+    "git",
+    "copilot",
+    "cli",
+    "pull-request"
+  ],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-username/co-pilot-review.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/co-pilot-review/issues"
+  },
+  "homepage": "https://github.com/your-username/co-pilot-review#readme",
+  "preferGlobal": true
+}
