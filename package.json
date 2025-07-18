@@ -1,5 +1,5 @@
 {
-  "name": "co-pilot-review",
+  "name": "@your-username/co-pilot-review",
   "version": "1.1.0",
   "description": "AI-assisted code review tool that analyzes git changes and posts reviews to pull requests",
   "main": "index.js",
@@ -7,9 +7,10 @@
     "cp-review": "./index.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublishOnly": "echo 'Publishing co-pilot-review...'",
-    "postinstall": "echo 'Thank you for installing co-pilot-review! Run cp-review in your git repository to get started.'"
+    "test": "node test.js",
+    "test:help": "node test.js",
+    "prepublishOnly": "npm test",
+    "postinstall": "echo 'co-pilot-review installed! Run: cp-review --help'"
   },
   "keywords": [
     "code-review",
