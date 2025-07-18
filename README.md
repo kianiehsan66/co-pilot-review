@@ -98,7 +98,7 @@ cp-review --interactive
 
 1. **Git repository**: Must be run from within a git repository
 2. **GitHub CLI**: Must have `gh` CLI installed and authenticated
-3. **Custom guidelines**: Create a `custom-coding-review-guidelines.md` file in your project root
+3. **Custom guidelines**: Create a `co-pilot-coding-review-guidelines.md` file in your project root
 4. **GitHub Copilot**: Must have access to GitHub Copilot Chat
 5. **Pull Request**: Must be run from a branch with an open pull request
 
@@ -113,7 +113,17 @@ cp-review --interactive
 
 ## Custom Guidelines
 
-Create a `custom-coding-review-guidelines.md` file in your project root with your specific coding standards and review criteria. This file will be included in the AI prompt to ensure consistent reviews.
+Create a `co-pilot-coding-review-guidelines.md` file in your project root with your specific coding standards and review criteria. This file will be included in the AI prompt to ensure consistent reviews.
+
+**If no custom guidelines file is found:**
+- The tool will warn you and continue with example guidelines
+- You can use the provided `custom-coding-review-guidelines.md.example` as a starting point
+- Basic fallback guidelines will be used if no example file exists
+
+**To create your own guidelines:**
+1. Copy the example file: `cp custom-coding-review-guidelines.md.example co-pilot-coding-review-guidelines.md`
+2. Edit the file to match your project's coding standards
+3. The tool will automatically use your custom guidelines
 
 Example:
 ```markdown

@@ -162,11 +162,46 @@ function getAllDiffs(baseBranch, targetBranch) {
  * Read the custom coding review guidelines
  */
 function getGuidelines() {
-  const guidelinesPath = path.resolve(__dirname, 'custom-coding-review-guidelines.md');
-  if (!fs.existsSync(guidelinesPath)) {
-    throw new Error(`Guidelines file not found at: ${guidelinesPath}`);
+  const guidelinesPath = path.resolve(process.cwd(), 'co-pilot-coding-review-guidelines.md');
+  const examplePath = path.resolve(__dirname, 'custom-coding-review-guidelines.md.example');
+  
+  if (fs.existsSync(guidelinesPath)) {
+    return fs.readFileSync(guidelinesPath, 'utf-8');
   }
-  return fs.readFileSync(guidelinesPath, 'utf-8');
+  
+  // Warn user and use example file
+  console.log('⚠️  Warning: Custom guidelines file not found!');
+  console.log(`   Expected: ${guidelinesPath}`);
+  console.log('   Using example guidelines instead...');
+  console.log('   💡 Create your own guidelines file for customized reviews.\n');
+  
+  if (fs.existsSync(examplePath)) {
+    return fs.readFileSync(examplePath, 'utf-8');
+  }
+  
+  // Fallback to basic guidelines if example doesn't exist
+  return `# Basic Code Review Guidelines
+
+## General Principles
+- Write clean, readable, and maintainable code
+- Follow consistent naming conventions
+- Use meaningful variable and function names
+- Keep functions small and focused
+
+## Error Handling
+- Always handle errors appropriately
+- Use try-catch blocks for async operations
+- Provide meaningful error messages
+
+## Security
+- Validate all user inputs
+- Avoid hardcoded secrets
+- Use secure coding practices
+
+## Documentation
+- Add comments for complex logic
+- Document function parameters and return values
+- Keep documentation up to date with code changes`;
 }
 
 /**
