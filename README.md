@@ -137,6 +137,10 @@ Example:
 - GitHub CLI (`gh`)
 - GitHub Copilot access
 
+## Version History
+
+See [CHANGELOG.md](CHANGELOG.md) for detailed version history.
+
 ## License
 
 ISC
