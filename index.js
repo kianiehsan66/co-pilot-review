@@ -323,7 +323,7 @@ function postPRComment(body) {
 function waitForTempFile(tempFilePath) {
   return new Promise((resolve, reject) => {
     console.log(`\n⏳ Waiting for file to be created: ${tempFilePath}`);
-    console.log('💡 In Copilot Chat, ask it to create the review file as instructed...\n');
+   
 
     const checkInterval = 1000; // Check every 1 second
     const maxWaitTime = 5 * 60 * 1000; // 5 minutes maximum
@@ -426,7 +426,7 @@ async function main() {
 
     console.log('\n📋 Message copied to clipboard!');
     console.log(
-      'Please paste it into Copilot Chat(AGENT,EDIT MODE) and ask it to create the review file.',
+      'Please paste it into Copilot Chat(AGENT,EDIT MODE) and hit Enter.',
     );
 
     // 4. Wait for temp file to be created
