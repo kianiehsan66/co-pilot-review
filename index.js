@@ -151,7 +151,32 @@ function getChangedFiles(baseBranch, targetBranch) {
  */
 function getAllDiffs(baseBranch, targetBranch) {
   try {
-    const diff = execSync(`git diff ${baseBranch}...${targetBranch}`, { encoding: 'utf-8' });
+    // Get changed files and their line counts
+    const numstatOutput = execSync(
+      `git diff --numstat ${baseBranch}...${targetBranch}`,
+      { encoding: 'utf-8' }
+    );
+    const filesToInclude = [];
+    numstatOutput.split('\n').forEach(line => {
+      if (!line.trim()) return;
+      const [added, deleted, file] = line.split(/\t/);
+      // Exclude lock files
+      if (/^(yarn\.lock|package-lock\.json|pnpm-lock\.yaml|npm-shrinkwrap\.json)$/i.test(file)) return;
+      const addedNum = parseInt(added, 10);
+      const deletedNum = parseInt(deleted, 10);
+      const total = (isNaN(addedNum) ? 0 : addedNum) + (isNaN(deletedNum) ? 0 : deletedNum);
+      if (total <= 1000) {
+        filesToInclude.push(file);
+      }
+    });
+    if (filesToInclude.length === 0) {
+      return '';
+    }
+    // Generate the diff only for the filtered files
+    const diff = execSync(
+      `git diff ${baseBranch}...${targetBranch} -- ${filesToInclude.map(f => `'${f.replace(/'/g, "'\\''")}'`).join(' ')}`,
+      { encoding: 'utf-8' }
+    );
     return diff;
   } catch (error) {
     throw new Error(`Failed to get diff between ${baseBranch} and ${targetBranch}: ${error.message}`);
@@ -219,7 +244,8 @@ function createCopilotMessage(guidelines, diff, changedFiles, tempFilePath, base
 
 IMPORTANT: Create a JSON file at the path: ${tempFilePath}
 
-The JSON file should contain your review in the exact format below. Do not include any markdown, explanations, or text outside the JSON structure in the file.
+The JSON file should contain your review in the exact format below. Do not include any markdown, explanations, or text outside the JSON structure in the file.IF YOU DO NOT FOLLOW THIS INSTRUCTION, I WILL NOT BE ABLE TO PROCESS YOUR REVIEW AND IT WILL BE FAILED.
+
 
 ## Branch Comparison:
 - **Base Branch**: ${baseBranch}
@@ -425,9 +451,7 @@ async function main() {
     copyToClipboard(message);
 
     console.log('\n📋 Message copied to clipboard!');
-    console.log(
-      'Please paste it into Copilot Chat(AGENT,EDIT MODE) and hit Enter.',
-    );
+   console.log('\x1b[1m\x1b[33mPlease paste it into Copilot Chat(AGENT,EDIT MODE) and hit Enter.\x1b[0m');
 
     // 4. Wait for temp file to be created
     const copilotResponse = await waitForTempFile(tempFilePath);
